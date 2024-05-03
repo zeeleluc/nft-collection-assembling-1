@@ -1,7 +1,8 @@
 <?php
 
 if (!function_exists('is_cli')) {
-    function is_cli() {
+    function is_cli(): bool
+    {
         if ( defined('STDIN') ) {
             return true;
         }
@@ -18,5 +19,21 @@ if (!function_exists('is_cli')) {
             return true;
         }
         return false;
+    }
+}
+
+if (!function_exists('fifty_fifty_chance')) {
+    function fifty_fifty_chance(): bool
+    {
+        return rarity_chance(1);
+    }
+}
+
+if (!function_exists('rarity_chance')) {
+    function rarity_chance(int $rarity): bool
+    {
+        $array = range(0, $rarity);
+        shuffle($array);
+        return $array[0] == 0;
     }
 }

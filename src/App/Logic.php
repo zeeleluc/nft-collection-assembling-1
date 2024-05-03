@@ -41,6 +41,7 @@ class Logic
             'Background',
             'Body',
             'Mouth',
+            'Eyes',
         ];
     }
 

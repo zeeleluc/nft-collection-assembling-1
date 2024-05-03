@@ -14,7 +14,15 @@ if (!$argv[1]) {
 $command = $argv[1];
 
 if (in_array('create', $argv)) {
-    (new \App\Builder\Token(1))
-        ->renderImage()
-        ->renderMetadata();
+
+    $session = 'test';
+
+    for ($i = 0; $i < 100; $i++) {
+        (new \App\Builder\Token($session, $i))
+            ->build()
+            ->renderImage()
+            ->renderMetadata();
+
+        echo $i . PHP_EOL;
+    }
 }

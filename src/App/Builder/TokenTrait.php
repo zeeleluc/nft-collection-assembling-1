@@ -17,7 +17,7 @@ class TokenTrait
         $properties = glob(ROOT . '/properties/' . $this->name . '/*.png');
         shuffle($properties);
 
-        $this->tokenTraitProperty = new TokenTraitProperty($properties[0]);
+        $this->tokenTraitProperty = new TokenTraitProperty(pathinfo($properties[0])['filename']);
     }
 
     public function getTokenTraitProperty(): TokenTraitProperty

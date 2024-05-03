@@ -10,7 +10,7 @@ trait TokenTraitTrait
     /**
      * @var array|\App\Builder\TokenTrait[]
      */
-    private array $tokenTraits = [];
+    public array $tokenTraits = [];
 
     public function addTrait(TokenTrait $tokenTrait): self
     {

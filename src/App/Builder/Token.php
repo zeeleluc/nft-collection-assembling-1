@@ -14,13 +14,6 @@ class Token
 
     private Logic $logic;
 
-    public function __construct(private readonly int $id)
-    {
-        $this->image = new Image();
-        $this->metadata = new Metadata();
-        $this->logic = new Logic();
-    }
-
     public function build(): self
     {
         foreach ($this->logic->traitOrder() as $trait) {
@@ -44,8 +37,19 @@ class Token
         return $this;
     }
 
+    public function __construct(
+        private readonly string $session,
+        private readonly int $id
+    ) {
+        $this->image = new Image($session, $id);
+        $this->metadata = new Metadata();
+        $this->logic = new Logic();
+    }
+
     public function renderImage(): self
     {
+        $this->image->render();
+
         return $this;
     }
 

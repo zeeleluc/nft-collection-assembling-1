@@ -43,7 +43,6 @@ class Image
             mkdir($defaultPath . '/' . $this->session);
             mkdir($defaultPath . '/' . $this->session . '/collection');
             mkdir($defaultPath . '/' . $this->session . '/collection/images');
-            mkdir($defaultPath . '/' . $this->session . '/collection/metadata');
         }
 
         return $defaultPath . '/' . $this->session . '/collection/images/' . $this->id . '.png';

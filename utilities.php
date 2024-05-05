@@ -37,3 +37,24 @@ if (!function_exists('rarity_chance')) {
         return $array[0] == 0;
     }
 }
+
+if (!function_exists('truncate_folder')) {
+    function truncate_folder(string $folderPath, string $folderName): void
+    {
+        $folderPath = rtrim($folderPath, '/') . '/';
+        if (!is_dir($folderPath . $folderName)) {
+            return;
+        }
+        $contents = scandir($folderPath . $folderName);
+        $contents = array_diff($contents, array('.', '..'));
+        foreach ($contents as $item) {
+            $itemPath = $folderPath . $folderName . '/' . $item;
+            if (is_dir($itemPath)) {
+                truncate_folder($folderPath . $folderName . '/', $item);
+            } else {
+                unlink($itemPath);
+            }
+        }
+        rmdir($folderPath . $folderName);
+    }
+}

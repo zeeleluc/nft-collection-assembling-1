@@ -5,7 +5,7 @@ namespace App\Builder;
 class TokenTrait
 {
 
-    private TokenTraitProperty $tokenTraitProperty;
+    public TokenTraitProperty $tokenTraitProperty;
 
     public function __construct(public readonly string $name)
     {

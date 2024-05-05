@@ -2,9 +2,9 @@
 
 namespace App\Builder;
 
-class TokenTraitProperty
+readonly class TokenTraitProperty
 {
-    public function __construct(public readonly string $name) {
+    public function __construct(public string $name) {
 
     }
 }

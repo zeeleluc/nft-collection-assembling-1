@@ -8,7 +8,7 @@ trait TokenTraitTrait
 {
 
     /**
-     * @var array|\App\Builder\TokenTrait[]
+     * @var array|TokenTrait[]
      */
     public array $tokenTraits = [];
 

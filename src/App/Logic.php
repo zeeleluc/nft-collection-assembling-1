@@ -32,6 +32,11 @@ class Logic
             'Hats',
             'Mouth',
             'Accessories',
+
+            // special
+//            'Plebs Heads',
+//            'Plebs_unique_pieces',
+//            'Unique_Mis.',
         ];
     }
 

@@ -7,12 +7,20 @@ class TokenTrait
 
     public TokenTraitProperty $tokenTraitProperty;
 
-    public function __construct(public readonly string $name)
+    public function __construct(public string $name, public bool $hasImage = true)
     {
-        $this->resolveProperty();
+        if ($hasImage) {
+            $this->resolveProperty();
+        } else {
+            $traitChunks = explode('::', $this->name);
+            if ($traitChunks && is_array($traitChunks) && isset($traitChunks[1])) {
+                $this->name = $traitChunks[0];
+                $this->tokenTraitProperty = new TokenTraitProperty($traitChunks[1]);
+            }
+        }
     }
 
-    private function resolveProperty()
+    private function resolveProperty(): void
     {
         $properties = glob(ROOT . '/properties/' . $this->name . '/*.png');
         shuffle($properties);

@@ -51,14 +51,37 @@ class Image
     /**
      * @throws \ImagickException
      */
-    public function render()
+    public function render(bool $debug = false)
     {
         foreach ($this->tokenTraits as $tokenTrait) {
-            $layer = new \Imagick($this->resolvePropertyPath($tokenTrait));
-            $this->imagick->setImageColorspace($layer->getImageColorspace());
-            $this->imagick->compositeImage($layer, $layer->getImageCompose(), 0, 0);
+            if ($tokenTrait->hasImage) {
+                $layer = new \Imagick($this->resolvePropertyPath($tokenTrait));
+                $this->imagick->setImageColorspace($layer->getImageColorspace());
+                $this->imagick->compositeImage($layer, $layer->getImageCompose(), 0, 0);
 
-            $this->imagick->compositeImage($layer, \Imagick::COMPOSITE_ATOP, 0, 0);
+                $this->imagick->compositeImage($layer, \Imagick::COMPOSITE_ATOP, 0, 0);
+            } else {
+                if ($tokenTrait->name === 'Background') {
+                    $this->imagick->newImage(1000, 1000, colors_resolver($tokenTrait->tokenTraitProperty->name));
+                }
+            }
+        }
+
+        if ($debug) {
+            $y = 25;
+            foreach ($this->tokenTraits as $tokenTrait) {
+                $propertyIdentifier = $tokenTrait->name . ': ' . $tokenTrait->tokenTraitProperty->name;
+
+                $draw = new \ImagickDraw();
+                $draw->setTextAlignment(\Imagick::ALIGN_LEFT);
+                $draw->setFontSize(18);
+                $draw->setFillColor(new \ImagickPixel('#111111'));
+                $draw->setTextUnderColor(new \ImagickPixel('#ffffff'));
+                $draw->annotation(5, $y, $propertyIdentifier);
+                $this->imagick->drawImage($draw);
+
+                $y += 19;
+            }
         }
 
         $this->imagick->writeImage($this->url);

@@ -16,15 +16,28 @@ class Logic
 
     public function canHaveTrait(TokenTrait $tokenTrait): bool
     {
+        $traitCantHaveOtherTrait = [
+            'Plebs Heads' => [
+                'Eyes',
+                'Mouth',
+            ],
+        ];
+
+        foreach ($traitCantHaveOtherTrait as $traitName => $otherTraitName) {
+            if ($this->hasTrait($traitName)) {
+                return ! in_array($tokenTrait->name, $otherTraitName);
+            }
+        }
+
         return true;
     }
 
     public function traitOrder(): array
     {
         return [
-            'Background',
             'Back Props',
             'Body',
+            'Plebs Heads',
             'Clothes',
             'Eyes',
             'Hair',
@@ -34,7 +47,6 @@ class Logic
             'Accessories',
 
             // special
-//            'Plebs Heads',
 //            'Plebs_unique_pieces',
 //            'Unique_Mis.',
         ];
@@ -43,7 +55,6 @@ class Logic
     public function mandatoryTraits(): array
     {
         return [
-            'Background',
             'Body',
             'Mouth',
             'Eyes',

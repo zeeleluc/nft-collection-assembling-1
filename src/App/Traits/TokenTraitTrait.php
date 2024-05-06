@@ -18,4 +18,15 @@ trait TokenTraitTrait
 
         return $this;
     }
+
+    public function hasTrait(string $name): bool
+    {
+        foreach ($this->tokenTraits as $tokenTrait) {
+            if ($tokenTrait->name === $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

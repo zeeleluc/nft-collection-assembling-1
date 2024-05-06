@@ -3,6 +3,7 @@ include_once 'preload.php';
 include_once 'autoloader.php';
 include_once 'utilities.php';
 
+const DEBUG = true;
 const SESSION = 'test';
 
 if (!is_cli()) {
@@ -40,6 +41,7 @@ if (in_array('create', $argv)) {
         do {
             try {
                 $uniqueNFT = (new \App\Builder\Token(SESSION, $i))
+                    ->debug(DEBUG)
                     ->build()
                     ->validateUniqueness();
 

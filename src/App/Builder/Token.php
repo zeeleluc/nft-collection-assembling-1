@@ -15,6 +15,8 @@ class Token
 
     private Logic $logic;
 
+    private bool $debug = false;
+
     /**
      * @throws ImagickException
      */
@@ -27,15 +29,35 @@ class Token
         $this->logic = new Logic();
     }
 
+    public function debug(bool $isDebug = true): self
+    {
+        $this->debug = $isDebug;
+
+        return $this;
+    }
+
     public function build(): self
     {
+        if (fifty_fifty_chance()) {
+            $tokenTrait = new TokenTrait('Background');
+        } else {
+            $colorNames = colors_resolver();
+            shuffle($colorNames);
+            $tokenTrait = new TokenTrait('Background::' . $colorNames[0], false);
+        }
+        $this->logic->addTrait($tokenTrait);
+        $this->image->addTrait($tokenTrait);
+        $this->metadata->addTrait($tokenTrait);
+
         foreach ($this->logic->traitOrder() as $trait) {
             $tokenTrait = new TokenTrait($trait);
 
             if ($this->logic->isTraitMandatory($tokenTrait)) {
-                $this->logic->addTrait($tokenTrait);
-                $this->image->addTrait($tokenTrait);
-                $this->metadata->addTrait($tokenTrait);
+                if ($this->logic->canHaveTrait($tokenTrait)) { // it is always mandatory "if"
+                    $this->logic->addTrait($tokenTrait);
+                    $this->image->addTrait($tokenTrait);
+                    $this->metadata->addTrait($tokenTrait);
+                }
             } else {
                 if ($this->logic->canHaveTrait($tokenTrait)) {
                     if (fifty_fifty_chance()) {
@@ -69,7 +91,7 @@ class Token
      */
     public function renderImage(): self
     {
-        $this->image->render();
+        $this->image->render($this->debug);
 
         return $this;
     }

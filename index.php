@@ -17,6 +17,9 @@ $command = $argv[1];
 $commandValue = $argv[2] ?? null;
 
 if (in_array('clear', $argv)) {
+    if (!$commandValue) {
+        $commandValue = SESSION;
+    }
     if ($commandValue) {
         truncate_folder(ROOT . '/generated/session/', $commandValue);
     } else {

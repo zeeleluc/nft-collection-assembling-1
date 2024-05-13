@@ -59,8 +59,8 @@ class Token
                     $this->metadata->addTrait($tokenTrait);
                 }
             } else {
-                if ($this->logic->canHaveTrait($tokenTrait)) {
-                    if (fifty_fifty_chance()) {
+                if (fifty_fifty_chance()) {
+                    if ($this->logic->canHaveTrait($tokenTrait)) {
                         $this->logic->addTrait($tokenTrait);
                         $this->image->addTrait($tokenTrait);
                         $this->metadata->addTrait($tokenTrait);

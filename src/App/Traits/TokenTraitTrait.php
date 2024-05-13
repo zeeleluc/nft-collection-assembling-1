@@ -29,4 +29,17 @@ trait TokenTraitTrait
 
         return false;
     }
+
+    public function hasTraitProperty(string $traitName, string $propertyName): bool
+    {
+        foreach ($this->tokenTraits as $tokenTrait) {
+            if ($tokenTrait->name === $traitName) {
+                if ($tokenTrait->tokenTraitProperty->name === $propertyName) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

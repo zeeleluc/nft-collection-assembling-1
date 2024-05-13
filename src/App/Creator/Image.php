@@ -54,6 +54,7 @@ class Image
     public function render(bool $debug = false)
     {
         foreach ($this->tokenTraits as $tokenTrait) {
+            $propertyIdentifier = $tokenTrait->name . ': ' . $tokenTrait->tokenTraitProperty->name;
             if ($tokenTrait->hasImage) {
                 $layer = new \Imagick($this->resolvePropertyPath($tokenTrait));
                 $this->imagick->setImageColorspace($layer->getImageColorspace());

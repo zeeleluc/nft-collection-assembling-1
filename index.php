@@ -59,3 +59,29 @@ if (in_array('create', $argv)) {
         } while(is_null($uniqueNFT));
     }
 }
+
+if (in_array('create-one', $argv)) {
+    $id = $commandValue;
+
+    $uniqueNFT = null;
+    do {
+        try {
+            $uniqueNFT = (new \App\Builder\Token(SESSION, $id))
+                ->debug(DEBUG)
+                ->build()
+                ->validateUniqueness();
+
+            if ($uniqueNFT) {
+                $uniqueNFT->renderImage()
+                    ->renderMetadata()
+                    ->captureUniqueness();
+                echo 'NFT# ' . $id . ' done.' . PHP_EOL;
+            } else {
+                echo 'NFT# ' . $id . ' duplicate found, try again...' . PHP_EOL;
+            }
+        } catch (ImagickException $e) {
+            echo $e->getMessage() . PHP_EOL;
+        }
+    } while(is_null($uniqueNFT));
+}
+

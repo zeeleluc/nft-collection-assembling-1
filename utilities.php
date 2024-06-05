@@ -71,6 +71,14 @@ if (!function_exists('colors_resolver')) {
             'merlot red' => '#b11226',
             'blue' => '#3944bc',
             'azure' => '#1520a6',
+            'Black' => '#000000',
+            'Gray' => '#808080',
+            'Pee' => '#c5c600',
+            'Orange' => '#f28500',
+            'Wine' => '#722F37',
+            'Blood' => '#b11226',
+            'Blue' => '#3944bc',
+            'Azure' => '#1520a6',
         ];
 
         if ($forColorName) {

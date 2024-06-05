@@ -63,14 +63,6 @@ if (!function_exists('colors_resolver')) {
     function colors_resolver(string $forColorName = ''): string|array
     {
         $colors = [
-            'black' => '#000000',
-            'gray' => '#808080',
-            'cloud' => '#c5c600',
-            'orange' => '#f28500',
-            'wine' => '#722F37',
-            'merlot red' => '#b11226',
-            'blue' => '#3944bc',
-            'azure' => '#1520a6',
             'Black' => '#000000',
             'Gray' => '#808080',
             'Pee' => '#c5c600',

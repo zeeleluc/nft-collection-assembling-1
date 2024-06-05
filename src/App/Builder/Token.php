@@ -36,6 +36,15 @@ class Token
         return $this;
     }
 
+    public function setProperty(TokenTrait $tokenTrait): self
+    {
+        $this->logic->addTrait($tokenTrait);
+        $this->image->addTrait($tokenTrait);
+        $this->metadata->addTrait($tokenTrait);
+
+        return $this;
+    }
+
     public function build(): self
     {
         if (fifty_fifty_chance()) {

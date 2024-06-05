@@ -28,6 +28,13 @@ class TokenTrait
         $this->tokenTraitProperty = new TokenTraitProperty(pathinfo($properties[0])['filename']);
     }
 
+    public function setTokenTraitProperty(string $name): self
+    {
+        $this->tokenTraitProperty = new TokenTraitProperty(pathinfo($name)['filename']);
+
+        return $this;
+    }
+
     public function getTokenTraitProperty(): TokenTraitProperty
     {
         return $this->tokenTraitProperty;

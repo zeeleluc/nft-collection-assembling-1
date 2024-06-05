@@ -80,3 +80,21 @@ if (!function_exists('colors_resolver')) {
         return array_keys($colors);
     }
 }
+
+if (!function_exists('get_property_trait')) {
+    function get_property_trait(string $trait, string $property = null): \App\Builder\TokenTrait
+    {
+        $hasImage = true;
+        $traitChunks = explode('::', $trait);
+        if ($traitChunks && is_array($traitChunks) && isset($traitChunks[1])) {
+            $hasImage = false;
+        }
+
+        $trait = (new \App\Builder\TokenTrait($trait, $hasImage));
+        if ($property) {
+            $trait->setTokenTraitProperty($property);
+        }
+
+        return $trait;
+    }
+}

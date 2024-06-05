@@ -85,3 +85,17 @@ if (in_array('create-one', $argv)) {
     } while(is_null($uniqueNFT));
 }
 
+if (in_array('specific', $argv)) {
+    $id = $commandValue;
+
+    try {
+        $specific = (new \App\Builder\Token('specific', $id))
+            ->setProperty(get_property_trait('Body', 'White Body'))
+            ->setProperty(get_property_trait('Mouth', 'Stale Face'))
+            ->setProperty(get_property_trait('Accessories', 'Base Iced Out Chain'))
+            ->renderImage()
+            ->renderMetadata();
+    } catch (ImagickException $e) {
+        echo $e->getMessage() . PHP_EOL;
+    }
+}

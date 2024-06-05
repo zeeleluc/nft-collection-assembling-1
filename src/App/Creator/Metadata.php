@@ -39,8 +39,8 @@ class Metadata
     {
         $metadata = [];
         $metadata['name'] = 'WeepingPleb #' . $this->id;
-        $metadata['description'] = 'Description needed.';
-        $metadata['image'] = 'ipfs://';
+        $metadata['description'] = '';
+        $metadata['image'] = 'ipfs://CID-PLACEHOLDER/' . $this->id . '.png';
         foreach ($this->tokenTraits as $tokenTrait) {
             $metadata['attributes'][] = [
                 'trait_type' => $tokenTrait->name,

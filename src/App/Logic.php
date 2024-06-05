@@ -25,6 +25,10 @@ class Logic
                         if ($this->hasTrait($logicProperties['having_trait'])) {
                             return false;
                         }
+                    } else {
+                        if ($this->hasTraitProperty($logicProperties['having_trait'], $logicProperties['having_property'])) {
+                            return false;
+                        }
                     }
                 } else {
                     if ($logicProperties['cannot_have_property'] === $tokenTrait->tokenTraitProperty->name) {
@@ -74,13 +78,10 @@ class Logic
             'Eyes',
             'Hair',
             'Hands',
-            'Hats',
             'Mouth',
+            'Special',
             'Accessories',
-
-            // special
-//            'Plebs_unique_pieces',
-//            'Unique_Mis.',
+            'Hats',
         ];
     }
 

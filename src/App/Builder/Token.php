@@ -59,7 +59,15 @@ class Token
                     $this->metadata->addTrait($tokenTrait);
                 }
             } else {
-                if (fifty_fifty_chance()) {
+                if (in_array($tokenTrait->name, ['Front Layer'])) {
+                    $do = rarity_chance(25);
+                } elseif (in_array($tokenTrait->name, ['Special', 'Plebs Heads'])) {
+                    $do = rarity_chance(10);
+                } else {
+                    $do = fifty_fifty_chance();
+                }
+
+                if ($do) {
                     if ($this->logic->canHaveTrait($tokenTrait)) {
                         $this->logic->addTrait($tokenTrait);
                         $this->image->addTrait($tokenTrait);

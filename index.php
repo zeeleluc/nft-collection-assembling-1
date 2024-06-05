@@ -35,7 +35,7 @@ if (in_array('create', $argv)) {
         truncate_folder(ROOT . '/generated/session/', SESSION);
     }
 
-    for ($i = $id; $i < 7777; $i++) {
+    for ($i = $id; $i <= 8888; $i++) {
 
         $uniqueNFT = null;
         do {

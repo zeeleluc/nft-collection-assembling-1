@@ -29,7 +29,9 @@ class Metadata
         $string = '';
 
         foreach ($this->tokenTraits as $tokenTrait) {
-            $string .= $tokenTrait->name . $tokenTrait->tokenTraitProperty->name;
+            if ($tokenTrait->name !== 'Background' && $tokenTrait->name !== 'Face') {
+                $string .= $tokenTrait->name . $tokenTrait->tokenTraitProperty->name;
+            }
         }
 
         return md5($string);
@@ -38,9 +40,10 @@ class Metadata
     private function createMeta(): array
     {
         $metadata = [];
-        $metadata['name'] = 'WeepingPleb #' . $this->id;
-        $metadata['description'] = '';
-        $metadata['image'] = 'ipfs://CID-PLACEHOLDER/' . $this->id . '.png';
+        $metadata['name'] = 'Dickbutt #' . $this->id;
+        $metadata['description'] = 'A Call to Arms... It’s time to rally the troops and take a stand! We’re all about a future where innovation thrives and crypto stays free from chokehold regulations. But under the watch of ‘you know who’, the SEC is putting a stranglehold on our decentralized dreams. Let this crosschain collection symbolize all that is defi & secure your spot in our loving community by owning a Gary G Genzler... the G is for Guzzler and don’t forget it!';
+//        $metadata['edition'] = 1;
+        $metadata['image'] = 'ipfs://CID-PLACEHOLDER/' . $this->id . '.gif';
         foreach ($this->tokenTraits as $tokenTrait) {
             $metadata['attributes'][] = [
                 'trait_type' => $tokenTrait->name,

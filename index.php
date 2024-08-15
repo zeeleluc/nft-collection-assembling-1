@@ -3,8 +3,8 @@ include_once 'preload.php';
 include_once 'autoloader.php';
 include_once 'utilities.php';
 
-const DEBUG = true;
-const SESSION = 'test';
+const DEBUG = false;
+const SESSION = 'coreum';
 
 if (!is_cli()) {
     exit('This is a terminal only application.');
@@ -26,6 +26,7 @@ if (in_array('clear', $argv)) {
     } else {
         echo 'Session missing... ' . PHP_EOL;
     }
+    truncate_folder('tmp', $commandValue);
 }
 
 if (in_array('create', $argv)) {
@@ -35,14 +36,15 @@ if (in_array('create', $argv)) {
         truncate_folder(ROOT . '/generated/session/', SESSION);
     }
 
-    for ($i = $id; $i <= 8888; $i++) {
+    for ($i = $id; $i <= 5000; $i++) {
 
         $uniqueNFT = null;
         do {
             try {
                 $uniqueNFT = (new \App\Builder\Token(SESSION, $i))
+                    ->isGif()
                     ->debug(DEBUG)
-                    ->build()
+                    ->build($i)
                     ->validateUniqueness();
 
                 if ($uniqueNFT) {
@@ -67,8 +69,9 @@ if (in_array('create-one', $argv)) {
     do {
         try {
             $uniqueNFT = (new \App\Builder\Token(SESSION, $id))
+                ->isGif()
                 ->debug(DEBUG)
-                ->build()
+                ->build($id)
                 ->validateUniqueness();
 
             if ($uniqueNFT) {

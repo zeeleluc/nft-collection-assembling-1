@@ -10,8 +10,17 @@ class Logic
 
     use TokenTraitTrait;
 
+    public bool $isGif = false;
+
     public function __construct()
     {
+    }
+
+    public function isGif(bool $isGif = true): self
+    {
+        $this->isGif = $isGif;
+
+        return $this;
     }
 
     public function canHaveTrait(TokenTrait $tokenTrait): bool
@@ -68,29 +77,28 @@ class Logic
         return $logic;
     }
 
+    public function getTheGifProperty(): string
+    {
+        return 'Body';
+    }
+
     public function traitOrder(): array
     {
         return [
-            'Back Props',
             'Body',
-            'Plebs Heads',
+            'Face',
             'Clothes',
-            'Eyes',
-            'Hair',
-            'Mouth',
-            'Hands',
-            'Special',
-            'Accessories',
-            'Hats',
+            'Earring',
+            'Head',
         ];
     }
 
     public function mandatoryTraits(): array
     {
         return [
+            'Background',
             'Body',
-            'Mouth',
-            'Eyes',
+            'Face',
         ];
     }
 

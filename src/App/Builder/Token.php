@@ -29,6 +29,14 @@ class Token
         $this->logic = new Logic();
     }
 
+    public function isGif(bool $isGif = true): self
+    {
+        $this->logic->isGif($isGif);
+        $this->image->isGif($isGif);
+
+        return $this;
+    }
+
     public function debug(bool $isDebug = true): self
     {
         $this->debug = $isDebug;
@@ -45,21 +53,76 @@ class Token
         return $this;
     }
 
-    public function build(): self
+    public function build(int $id): self
     {
-        if (fifty_fifty_chance()) {
-            $tokenTrait = new TokenTrait('Background');
-        } else {
-            $colorNames = colors_resolver();
-            shuffle($colorNames);
-            $tokenTrait = new TokenTrait('Background::' . $colorNames[0], false);
-        }
+        $tokenTrait = new TokenTrait($this->logic, 'Background');
+//        if (fifty_fifty_chance()) {
+//            $tokenTrait = new TokenTrait($this->logic, 'Background');
+//        } else {
+//            $colorNames = colors_resolver();
+//            shuffle($colorNames);
+//            $tokenTrait = new TokenTrait($this->logic, 'Background::' . $colorNames[0], false);
+//        }
         $this->logic->addTrait($tokenTrait);
         $this->image->addTrait($tokenTrait);
         $this->metadata->addTrait($tokenTrait);
 
         foreach ($this->logic->traitOrder() as $trait) {
-            $tokenTrait = new TokenTrait($trait);
+            $tokenTrait = new TokenTrait($this->logic, $trait);
+            if ($trait === 'Body') {
+
+                // Coreum
+                if ($id === 1378) {
+                    $tokenTrait->setTokenTraitProperty('Book');
+                } elseif ($id === 2846) {
+                    $tokenTrait->setTokenTraitProperty('Coin');
+                } elseif ($id === 4231) {
+                    $tokenTrait->setTokenTraitProperty('Goldie Gary');
+                } elseif ($id === 1927) {
+                    $tokenTrait->setTokenTraitProperty('Zombie Judge');
+                } elseif ($id === 3490) {
+                    $tokenTrait->setTokenTraitProperty('Flash Drive Coreum');
+                }
+
+                // Solana
+//                if ($id === 3427) {
+//                    $tokenTrait->setTokenTraitProperty('Zombie 1 Judge');
+//                } elseif ($id === 1985) {
+//                    $tokenTrait->setTokenTraitProperty('Zombie 2');
+//                } elseif ($id === 478) {
+//                    $tokenTrait->setTokenTraitProperty('Zombie 3 Solana Book');
+//                } elseif ($id === 2690) {
+//                    $tokenTrait->setTokenTraitProperty('Zombie 4 Solana Coin');
+//                } elseif ($id === 4122) {
+//                    $tokenTrait->setTokenTraitProperty('Solana');
+//                }
+
+//                // XRPL
+//                if ($id === 1789) {
+//                    $tokenTrait->setTokenTraitProperty('Ball');
+//                } elseif ($id === 1234) {
+//                    $tokenTrait->setTokenTraitProperty('XRP Card');
+//                } elseif ($id === 2876) {
+//                    $tokenTrait->setTokenTraitProperty('XRP Emblem');
+//                } elseif ($id === 3998) {
+//                    $tokenTrait->setTokenTraitProperty('XRP Flag');
+//                } elseif ($id === 4512) {
+//                    $tokenTrait->setTokenTraitProperty('XRP Gold');
+//                }
+
+                // Base
+//                if ($id === 3918) {
+//                    $tokenTrait->setTokenTraitProperty('Base Coin');
+//                } elseif ($id === 779) {
+//                    $tokenTrait->setTokenTraitProperty('Gold Ledger');
+//                } elseif ($id === 2522) {
+//                    $tokenTrait->setTokenTraitProperty('Golden Bell');
+//                } elseif ($id === 3813) {
+//                    $tokenTrait->setTokenTraitProperty('Judge Hammer');
+//                } elseif ($id === 1252) {
+//                    $tokenTrait->setTokenTraitProperty('Book');
+//                }
+            }
 
             if ($this->logic->isTraitMandatory($tokenTrait)) {
                 if ($this->logic->canHaveTrait($tokenTrait)) { // it is always mandatory "if"
@@ -68,14 +131,7 @@ class Token
                     $this->metadata->addTrait($tokenTrait);
                 }
             } else {
-                if (in_array($tokenTrait->name, ['Front Layer'])) {
-                    $do = rarity_chance(25);
-                } elseif (in_array($tokenTrait->name, ['Special', 'Plebs Heads'])) {
-                    $do = rarity_chance(10);
-                } else {
-                    $do = fifty_fifty_chance();
-                }
-
+                $do = fifty_fifty_chance();
                 if ($do) {
                     if ($this->logic->canHaveTrait($tokenTrait)) {
                         $this->logic->addTrait($tokenTrait);
@@ -108,7 +164,7 @@ class Token
      */
     public function renderImage(): self
     {
-        $this->image->render($this->debug);
+        $this->image->render($this->logic, $this->debug);
 
         return $this;
     }
